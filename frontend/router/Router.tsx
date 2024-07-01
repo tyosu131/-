@@ -1,40 +1,20 @@
-import React, { memo } from "react";
-import { Route, Routes } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TOP from '../components/Pages/top';
+import Contact from '../components/Pages/contact';
 
-import { TOP } from "../components/Pages/top";
-import { Contact } from "../components/Pages/contact";
+const AppRouter: React.FC = () => {
+  const onOpenContact = () => {
+  };
 
-interface RouteProps {
-  path: string;
-  Component: React.ComponentType;
-}
-
-const homeRoutes: RouteProps[] = [
-  {
-    path: "/top",
-    Component: TOP
-  },
-  {
-    path: "/contact",
-    Component: Contact
-  }
-];
-
-const RouterComponent: React.FC = () => {
   return (
-    <Routes>
-      {homeRoutes.map((route) => (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={<route.Component />}
-        />
-      ))}
-      <Route path="/contact" element={<Contact />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<TOP onOpenContact={onOpenContact} />} />
+        <Route path="/contact" element={<Contact isOpen={true} onClose={() => {}} />} />
+      </Routes>
+    </Router>
   );
 };
 
-RouterComponent.displayName = "Router";
-
-export const Router = memo(RouterComponent);
+export default AppRouter;

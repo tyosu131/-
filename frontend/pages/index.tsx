@@ -1,8 +1,8 @@
-import React from "react";
-import TOP from "../components/Pages/top";
+import React from 'react';
+import Top from '../components/Pages/top'; 
 
 const HomePage: React.FC = () => {
-  return <TOP />;
+  return <Top />;
 };
 
 export default HomePage;

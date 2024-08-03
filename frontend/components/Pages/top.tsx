@@ -1,3 +1,4 @@
+// frontend/pages/top.tsx
 import React, { useState, useMemo } from "react";
 import { Box, Stack, Text, IconButton, Grid, GridItem, Button, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { HamburgerIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
@@ -5,11 +6,7 @@ import { useRouter } from 'next/router';
 import { URLS } from '../../constants/urls';
 import { generateCalendarDates } from '../../utils/calendarUtils';
 
-interface TOPProps {
-  onOpenContact: () => void;
-}
-
-const TOP: React.FC<TOPProps> = ({ onOpenContact }) => {
+const Top: React.FC = () => {
   const router = useRouter();
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -167,4 +164,4 @@ const TOP: React.FC<TOPProps> = ({ onOpenContact }) => {
   );
 };
 
-export default TOP;
+export default Top;

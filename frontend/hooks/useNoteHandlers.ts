@@ -6,12 +6,11 @@ import axios from "axios";
 
 const useNoteHandlers = (noteData: NoteData | null, setNoteData: React.Dispatch<React.SetStateAction<NoteData | null>>) => {
   const router = useRouter();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const debouncedSave = useDebouncedCallback(async (data: NoteData) => {
     try {
-      console.log("Auto-saving note data:", data);
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/notes/${data.date}`, data);
-      console.log("Saved successfully!");
+      await axios.post(`http://localhost:3001/api/notes/${user.id}/${data.date}`, data);
     } catch (error) {
       console.error("Failed to save note", error);
     }

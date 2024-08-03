@@ -1,4 +1,3 @@
-// frontend/pages/index.tsx
 import React from 'react';
 import Login from '../components/pages/Login';
 

@@ -12,7 +12,12 @@ import { NoteData } from "../../types/types";
 import axios from "axios";
 
 const fetchNoteData = async (url: string): Promise<NoteData> => {
-  const res = await axios.get(url);
+  const token = localStorage.getItem("token");
+  const res = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const data = res.data;
   const exercises = JSON.parse(data.exercises);
 

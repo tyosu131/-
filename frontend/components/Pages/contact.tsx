@@ -1,7 +1,19 @@
 import React from "react";
-import { Box, Button, FormControl, FormLabel, Input, Textarea, IconButton, CloseButton, useToast, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  IconButton,
+  CloseButton,
+  useToast,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { FaUser, FaEnvelope } from "react-icons/fa";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router"; // useRouterのインポート
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,11 +32,15 @@ interface ContactProps {
 }
 
 const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormInputs>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactFormInputs>({
     resolver: zodResolver(contactSchema),
   });
   const toast = useToast();
-  const router = useRouter();
+  const router = useRouter(); // useRouterを追加して使用
 
   const onSubmit = (data: ContactFormInputs) => {
     toast({
@@ -36,12 +52,25 @@ const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
     });
   };
 
+  const handleClose = () => {
+    onClose();
+    router.push("/top"); // Topページに遷移
+  };
+
   return (
-    <Box maxW="md" mx="auto" mt={10} p={8} boxShadow="lg" borderRadius="md" position="relative">
+    <Box
+      maxW="5xl"
+      mx="auto"
+      mt={10}
+      p={8}
+      boxShadow="lg"
+      borderRadius="md"
+      position="relative"
+    >
       <IconButton
         aria-label="Close"
         icon={<CloseButton />}
-        onClick={onClose}
+        onClick={handleClose} // onCloseをhandleCloseに変更
         position="absolute"
         top={2}
         right={2}
@@ -49,7 +78,7 @@ const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
         size="lg"
       />
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-        <FormControl id="name" mb={6} isInvalid={!!errors.name}>
+        <FormControl id="name" mb={8} isInvalid={!!errors.name}>
           <FormLabel fontSize="lg">Name</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -75,7 +104,7 @@ const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
             </Box>
           )}
         </FormControl>
-        <FormControl id="email" mb={6} isInvalid={!!errors.email}>
+        <FormControl id="email" mb={8} isInvalid={!!errors.email}>
           <FormLabel fontSize="lg">Email</FormLabel>
           <InputGroup>
             <InputLeftElement
@@ -101,14 +130,14 @@ const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
             </Box>
           )}
         </FormControl>
-        <FormControl id="message" mb={6} isInvalid={!!errors.message}>
+        <FormControl id="message" mb={8} isInvalid={!!errors.message}>
           <FormLabel fontSize="lg">Message</FormLabel>
           <Textarea
             {...register("message")}
             resize="none"
             overflowY="auto"
             minH="200px"
-            fontSize="lg"
+            fontSize="md"
             py={6}
           />
           {errors.message && (
@@ -117,9 +146,18 @@ const Contact: React.FC<ContactProps> = ({ isOpen, onClose }) => {
             </Box>
           )}
         </FormControl>
-        <Button type="submit" colorScheme="blue" width="full" size="lg" fontSize="lg" py={6}>
-          Submit
-        </Button>
+        <Box display="flex" justifyContent="center">
+          <Button
+            type="submit"
+            colorScheme="blue"
+            width="calc(25% - 20px)" // ボタン幅を調整
+            borderRadius="full" // ボタンの角を丸く
+            height="50px" // ボタンの高さを指定
+            fontSize="lg"
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
